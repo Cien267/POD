@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router"
 import HomePage from "@/views/HomePage.vue"
 import NotFoundPage from "@/views/NotFoundPage.vue"
+import ProductPage from "@/views/ProductPage.vue"
+import DesignPage from "@/views/DesignPage.vue"
+import ProductDetailPage from "@/views/ProductDetailPage.vue"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -9,6 +12,22 @@ const router = createRouter({
       path: "/",
       name: "HomePage",
       component: HomePage,
+    },
+    {
+      path: "/products",
+      name: "ProductPage",
+      component: ProductPage,
+    },
+    {
+      path: "/product/:id",
+      name: "ProductDetailPage",
+      component: ProductDetailPage,
+      props: true,
+    },
+    {
+      path: "/designs",
+      name: "DesignPage",
+      component: DesignPage,
     },
 
     { path: `/:notFound(.*)`, component: NotFoundPage },

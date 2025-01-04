@@ -15,7 +15,8 @@
           Thể hiện phong cách riêng qua các sản phẩm in ấn độc đáo như áo thun,
           cốc sứ, tranh treo tường,...
         </p>
-        <button
+        <router-link
+          to="/products"
           class="mt-12 relative border hover:border-sky-600 duration-500 group cursor-pointer text-sky-50 overflow-hidden h-14 w-56 rounded-md bg-sky-800 p-2 flex justify-center items-center font-extrabold"
         >
           <div
@@ -34,7 +35,7 @@
             class="absolute z-10 w-16 h-16 rounded-full group-hover:scale-150 transition-all duration-500 ease-in-out bg-sky-500 delay-150 group-hover:delay-300"
           ></div>
           <p class="z-10">Khám phá ngay</p>
-        </button>
+        </router-link>
       </div>
 
       <div class="lg:h-[680px] flex items-center">

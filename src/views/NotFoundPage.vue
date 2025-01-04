@@ -8,7 +8,7 @@
       Whoops! Trang không tồn tại
     </h4>
     <router-link
-      to="/home"
+      to="/"
       type="button"
       class="w-80 py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none text-center"
     >

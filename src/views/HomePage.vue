@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import PageLayout from "@/layouts/PageLayout.vue"
-import HeroSection from "@/components/HeroSection.vue"
-import TopProducts from "@/components/TopProducts.vue"
-import TopDesign from "@/components/TopDesign.vue"
-import StatisticalNumber from "@/components/StatisticalNumber.vue"
-import Testimonial from "@/components/Testimonial.vue"
+import HeroSection from "@/components/home/HeroSection.vue"
+import TopProducts from "@/components/home/TopProducts.vue"
+import TopDesign from "@/components/home/TopDesign.vue"
+import StatisticalNumber from "@/components/home/StatisticalNumber.vue"
+import Testimonial from "@/components/home/Testimonial.vue"
 </script>
 
 <template>

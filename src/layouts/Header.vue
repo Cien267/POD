@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "vue"
+import { ref, computed } from "vue"
+import router from "@/router/index.ts"
 
 const toggleOpen = ref(null)
 const toggleClose = ref(null)
-const collapseMenu = ref(null)
+const collapseMenu = ref()
 
 const handleClick = () => {
   if (collapseMenu.value.style.display === "block") {
@@ -12,14 +13,17 @@ const handleClick = () => {
     collapseMenu.value.style.display = "block"
   }
 }
+const currentPath = computed(() => {
+  return router.options.history.state.current
+})
 </script>
 
 <template>
   <header
-    class="shadow-md bg-white font-[sans-serif] tracking-wide relative z-50"
+    class="shadow-md bg-white font-[sans-serif] tracking-wide z-50 fixed top-0 w-full"
   >
     <section
-      class="flex items-center flex-wrap lg:justify-center gap-4 py-2.5 sm:px-10 px-4 border-gray-200 border-b min-h-[70px]"
+      class="flex items-center flex-wrap lg:justify-center gap-4 py-2.5 sm:px-10 px-4 border-gray-200 border-b min-h-[70px] relative"
     >
       <div
         class="left-10 z-50 flex flex-col px-4 py-2.5 pt-6 rounded max-lg:hidden font-oi bg-gradient-to-r from-yellow-200 to-sky-500 bg-clip-text text-transparent"
@@ -113,16 +117,24 @@ const handleClick = () => {
             </a>
           </li>
           <li class="max-lg:border-b max-lg:px-3 max-lg:py-3">
-            <a
+            <router-link
+              to="/"
               href="javascript:void(0)"
-              class="hover:text-[#007bff] text-[#007bff] font-semibold block text-[15px]"
-              >Trang chủ</a
+              class="hover:text-[#007bff] block text-[15px]"
+              :class="
+                currentPath === '/'
+                  ? 'hover:text-[#007bff] !text-[#007bff] '
+                  : ''
+              "
+              >Trang chủ</router-link
             >
           </li>
           <li class="group max-lg:border-b max-lg:px-3 max-lg:py-3 relative">
-            <a
+            <router-link
+              to="/products"
               href="javascript:void(0)"
               class="hover:text-[#007bff] hover:fill-[#007bff] text-gray-800 text-[15px] flex items-center"
+              :class="currentPath === '/products' ? ' !text-[#007bff] ' : ''"
               >Sản phẩm<svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16px"
@@ -136,7 +148,7 @@ const handleClick = () => {
                   data-original="#000000"
                 />
               </svg>
-            </a>
+            </router-link>
             <ul
               class="absolute top-5 max-lg:top-8 left-0 z-50 block space-y-2 shadow-lg bg-white max-h-0 overflow-hidden min-w-[230px] group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-[400ms]"
             >
@@ -203,11 +215,13 @@ const handleClick = () => {
             </ul>
           </li>
           <li class="max-lg:border-b max-lg:px-3 max-lg:py-3">
-            <a
+            <router-link
+              to="/designs"
               href="javascript:void(0)"
               class="hover:text-[#007bff] text-gray-800 text-[15px] block"
-              >Thiết kế</a
-            >
+              :class="currentPath === '/designs' ? ' !text-[#007bff] ' : ''"
+              >Thiết kế
+            </router-link>
           </li>
           <li class="max-lg:border-b max-lg:px-3 max-lg:py-3">
             <a

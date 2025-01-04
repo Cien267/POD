@@ -8,7 +8,7 @@ import Header from "@/layouts/Header.vue"
     <div class="flex-1 flex flex-col overflow-x-hidden overflow-y-auto">
       <Header />
 
-      <main class="flex-1 bg-gray-200">
+      <main class="flex-1 bg-gray-200 mt-[150px]">
         <slot />
       </main>
 

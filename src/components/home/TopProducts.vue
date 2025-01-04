@@ -7,6 +7,7 @@
     </h2>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <router-link to="/product/1">
       <div class="group overflow-hidden cursor-pointer relative">
         <div class="bg-gray-100 w-full overflow-hidden">
           <img
@@ -61,7 +62,8 @@
           </div>
         </div>
       </div>
-
+    </router-link>
+      
       <div class="group overflow-hidden cursor-pointer relative">
         <div class="bg-gray-100 w-full overflow-hidden">
           <img
@@ -440,7 +442,8 @@
       </div>
     </div>
     <div class="w-full flex justify-end items-center">
-      <button
+      <router-link
+        to="/products"
         class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-sky-500 group px-2 py-1"
       >
         <span
@@ -453,7 +456,7 @@
         <span
           class="absolute w-full h-full bg-sky-500 -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
         ></span>
-      </button>
+      </router-link>
     </div>
   </div>
 </template>

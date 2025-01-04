@@ -1,12 +1,13 @@
 <template>
-  <div class="font-[sans-serif] p-4 mx-auto max-w-[1400px] mt-20 mb-10">
-    <h2
-      class="text-xl text-center sm:text-3xl font-extrabold text-gray-800 mb-6 sm:mb-8"
-    >
-      Thiết kế sáng tạo
-    </h2>
+  <div class="flex justify-center items-center text-2xl font-semibold text-emerald-500 mt-8">
+    Lựa chọn thiết kế phù hợp 
+  </div>
+  <div
+    class="font-[sans-serif] flex justify-between items-start gap-10 mx-auto max-w-[1400px] mt-6 mb-20"
+  >
+  
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
       <div
         class="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-lg overflow-hidden mx-auto font-[sans-serif] mt-4 h-[470px]"
       >
@@ -25,9 +26,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -48,9 +49,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -71,9 +72,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -95,9 +96,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -118,9 +119,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -141,9 +142,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -165,9 +166,9 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
@@ -188,28 +189,11 @@
           </p>
           <button
             type="button"
-            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
+            class="mt-6 px-5 py-2.5 rounded-lg text-white text-sm tracking-wider border-none outline-none bg-sky-400 hover:bg-sky-600 active:bg-sky-500"
           >
-            Xem
+            Sử dụng
           </button>
         </div>
       </div>
-    </div>
-    <div class="w-full flex justify-end items-center mt-10">
-      <button
-        class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-sky-500 group px-2 py-1"
-      >
-        <span
-          class="relative z-10 text-sky-500 group-hover:text-white text-sm duration-500"
-          >Xem thêm ➜</span
-        >
-        <span
-          class="absolute w-full h-full bg-sky-500 -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"
-        ></span>
-        <span
-          class="absolute w-full h-full bg-sky-500 -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"
-        ></span>
-      </button>
-    </div>
-  </div>
+    </div>  </div>
 </template>
