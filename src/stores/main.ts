@@ -1,9 +1,10 @@
 import { defineStore } from "pinia"
+import type { ProductType, DesignType } from "@/types/main"
 
 export const useMainStore = defineStore("main", {
   state: () => ({
-    selectedProduct: null,
-    selectedDesign: null,
+    selectedProduct: {} as ProductType,
+    selectedDesign: {} as DesignType,
   }),
 
   getters: {
@@ -12,10 +13,10 @@ export const useMainStore = defineStore("main", {
   },
 
   actions: {
-    setSelectedProduct(selectedProduct: any) {
+    setSelectedProduct(selectedProduct: ProductType) {
       this.selectedProduct = selectedProduct
     },
-    setSelectedDesign(selectedDesign: any) {
+    setSelectedDesign(selectedDesign: DesignType) {
       this.selectedDesign = selectedDesign
     },
   },

@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         oi: ['"Oi"', "sans-serif"],
       },
+      boxShadow: {
+        modal: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+      },
     },
   },
   plugins: [],

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from "vue"
 import router from "@/router/index.ts"
+import useAddToWishList from "@/composables/useAddToWishList"
+import useClickOutside from "@/composables/useClickOutside"
+import { formatMoney } from "@/helpers/common"
+import { Notivue, Notification } from "notivue"
+import { useMainStore } from "@/stores/main"
+const store = useMainStore()
+import type { ProductType } from "@/types/main"
 
 const toggleOpen = ref(null)
 const toggleClose = ref(null)
@@ -16,6 +23,36 @@ const handleClick = () => {
 const currentPath = computed(() => {
   return router.options.history.state.current
 })
+
+// wish list
+const { getWishlist, removeFromWishList } = useAddToWishList()
+const dropdownRef = ref()
+const exceptionRef = ref()
+const showDropdownWishList = ref(false)
+
+useClickOutside(
+  dropdownRef,
+  () => {
+    showDropdownWishList.value = false
+  },
+  exceptionRef
+)
+
+// select product
+const selectProductToApplyDesign = (product: ProductType) => {
+  showDropdownWishList.value = false
+  const selectedDesign = store.getSelectedDesign
+  store.setSelectedProduct(product)
+  if (!selectedDesign.id) {
+    push.success({
+      title: "Thông báo",
+      message: "Đã chọn sản phẩm, tiếp tục chọn thiết kế để in.",
+    })
+    router.push({ name: "DesignPage" })
+  } else {
+    router.push({ name: "OrderPage" })
+  }
+}
 </script>
 
 <template>
@@ -46,6 +83,8 @@ const currentPath = computed(() => {
       <div class="lg:absolute lg:right-10 flex items-center ml-auto space-x-8">
         <span class="relative">
           <svg
+            ref="exceptionRef"
+            @click="showDropdownWishList = !showDropdownWishList"
             xmlns="http://www.w3.org/2000/svg"
             width="20px"
             class="cursor-pointer fill-gray-800 hover:fill-[#007bff] inline-block"
@@ -58,26 +97,129 @@ const currentPath = computed(() => {
           </svg>
           <span
             class="absolute left-auto -ml-1 top-0 rounded-full bg-blue-600 px-1 py-0 text-xs text-white"
-            >1</span
+            >{{ getWishlist.length }}</span
           >
-        </span>
-        <span class="relative">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20px"
-            height="20px"
-            class="cursor-pointer fill-gray-800 hover:fill-[#007bff] inline-block"
-            viewBox="0 0 512 512"
+          <div
+            ref="dropdownRef"
+            v-if="showDropdownWishList && getWishlist.length"
+            id="dropdownMenu"
+            class="absolute block shadow-modal bg-white py-2 z-[999999999] min-w-full w-max rounded-lg max-h-[500px] overflow-auto top-full right-0 p-4"
           >
-            <path
-              d="M164.96 300.004h.024c.02 0 .04-.004.059-.004H437a15.003 15.003 0 0 0 14.422-10.879l60-210a15.003 15.003 0 0 0-2.445-13.152A15.006 15.006 0 0 0 497 60H130.367l-10.722-48.254A15.003 15.003 0 0 0 105 0H15C6.715 0 0 6.715 0 15s6.715 15 15 15h77.969c1.898 8.55 51.312 230.918 54.156 243.71C131.184 280.64 120 296.536 120 315c0 24.812 20.188 45 45 45h272c8.285 0 15-6.715 15-15s-6.715-15-15-15H165c-8.27 0-15-6.73-15-15 0-8.258 6.707-14.977 14.96-14.996zM477.114 90l-51.43 180H177.032l-40-180zM150 405c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm167 15c0 24.813 20.188 45 45 45s45-20.188 45-45-20.188-45-45-45-45 20.188-45 45zm45-15c8.27 0 15 6.73 15 15s-6.73 15-15 15-15-6.73-15-15 6.73-15 15-15zm0 0"
-              data-original="#000000"
-            ></path>
-          </svg>
-          <span
-            class="absolute left-auto -ml-1 top-0 rounded-full bg-blue-600 px-1 py-0 text-xs text-white"
-            >4</span
-          >
+            <div
+              class="font-sans max-w-5xl max-md:max-w-xl mx-auto bg-white py-4"
+            >
+              <h1 class="text-2xl font-bold text-rose-500 text-center">
+                Danh sách yêu thích
+              </h1>
+
+              <div class="grid md:grid-cols-1 gap-8 mt-16">
+                <template v-for="item in getWishlist" :key="item.id">
+                  <div class="md:col-span-2 space-y-4 min-w-96">
+                    <div class="grid grid-cols-3 items-start gap-4">
+                      <div class="col-span-2 flex items-start gap-4">
+                        <div
+                          class="w-28 h-28 max-sm:w-24 max-sm:h-24 shrink-0 bg-gray-100 p-2 rounded-md"
+                        >
+                          <img
+                            :src="item.imageUrl"
+                            class="w-full h-full object-contain"
+                          />
+                        </div>
+
+                        <div class="flex flex-col">
+                          <h3 class="text-base font-bold text-gray-800">
+                            {{ item.name }}
+                          </h3>
+                        </div>
+                      </div>
+
+                      <div class="ml-auto">
+                        <h4
+                          class="text-md max-sm:text-base font-semibold text-sky-600"
+                        >
+                          {{ formatMoney(item.price) }}
+                        </h4>
+                        <div class="flex gap-4 justify-end">
+                          <button
+                            type="button"
+                            @click="removeFromWishList(item.id)"
+                            class="mt-16 font-semibold text-red-500 text-xs flex items-center gap-1 shrink-0"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="w-4 fill-current inline"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"
+                                data-original="#000000"
+                              ></path>
+                              <path
+                                d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"
+                                data-original="#000000"
+                              ></path>
+                            </svg>
+                          </button>
+                          <button
+                            @click="selectProductToApplyDesign(item)"
+                            type="button"
+                            class="mt-16 font-semibold text-red-500 text-xs flex items-center gap-1 shrink-0"
+                          >
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 1024 1024"
+                              class="icon"
+                              version="1.1"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M192 234.666667h640v64H192z"
+                                fill="#424242"
+                              />
+                              <path
+                                d="M85.333333 533.333333h853.333334v-149.333333c0-46.933333-38.4-85.333333-85.333334-85.333333H170.666667c-46.933333 0-85.333333 38.4-85.333334 85.333333v149.333333z"
+                                fill="#616161"
+                              />
+                              <path
+                                d="M170.666667 768h682.666666c46.933333 0 85.333333-38.4 85.333334-85.333333v-170.666667H85.333333v170.666667c0 46.933333 38.4 85.333333 85.333334 85.333333z"
+                                fill="#424242"
+                              />
+                              <path
+                                d="M853.333333 384m-21.333333 0a21.333333 21.333333 0 1 0 42.666667 0 21.333333 21.333333 0 1 0-42.666667 0Z"
+                                fill="#00E676"
+                              />
+                              <path
+                                d="M234.666667 85.333333h554.666666v213.333334H234.666667z"
+                                fill="#90CAF9"
+                              />
+                              <path
+                                d="M800 661.333333h-576c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h576c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32z"
+                                fill="#242424"
+                              />
+                              <path
+                                d="M234.666667 661.333333h554.666666v234.666667H234.666667z"
+                                fill="#90CAF9"
+                              />
+                              <path
+                                d="M234.666667 618.666667h554.666666v42.666666H234.666667z"
+                                fill="#42A5F5"
+                              />
+                              <path
+                                d="M341.333333 704h362.666667v42.666667H341.333333zM341.333333 789.333333h277.333334v42.666667H341.333333z"
+                                fill="#1976D2"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="border-gray-300" />
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
         </span>
       </div>
     </section>
@@ -278,5 +420,8 @@ const currentPath = computed(() => {
         </button>
       </div>
     </div>
+    <Notivue v-slot="item">
+      <Notification :item="item" />
+    </Notivue>
   </header>
 </template>
